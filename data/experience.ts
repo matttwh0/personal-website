@@ -55,7 +55,7 @@ export const experience: Experience[] = [
     org: "Real-Time Embedded & Control Systems Lab · SDSU",
     orgAccent: "orange",
     dates: "feb 2025 – now",
-    logo: "/uploads/logo-sdsu.png",
+    logo: "/uploads/rtec_logo.png",
     bullets: [
       "Improved vehicle object detection to 92% mAP50-95 at 85 ms average latency, reducing crash rate.",
       "Integrated a YOLOv8-nano model trained on 833 custom-labeled images into an autonomous F1Tenth racing platform's Intel RealSense setup for real-time localization and obstacle detection.",
