@@ -42,7 +42,7 @@ a:hover {
 
 /* ---- layout ---- */
 .page {
-  max-width: 1020px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 56px 24px 80px;
 }
@@ -54,9 +54,11 @@ a:hover {
 }
 
 .span-6 { grid-column: span 6; }
+.span-4 { grid-column: span 4; }
 .span-3 { grid-column: span 3; }
+.span-2 { grid-column: span 2; }
 @media (max-width: 720px) {
-  .span-3 { grid-column: span 6; }
+  .span-4, .span-3, .span-2 { grid-column: span 6; }
 }
 
 /* ---- reveal animation ----
@@ -89,9 +91,9 @@ a:hover {
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 14px rgba(43, 58, 49, 0.07);
-  border-color: #c3d0c6;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(43, 58, 49, 0.1);
+  border-color: #cbd6cd;
 }
 
 .section-title {
@@ -133,8 +135,10 @@ a:hover {
   background: linear-gradient(135deg, #ffffff, #eef4ef);
   border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 32px;
+  padding: 28px 32px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .intro-row {
   display: flex;
@@ -155,9 +159,7 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 76% 15%;
-  transform: scale(3.4);
-  transform-origin: 76% 15%;
+  object-position: center;
 }
 .intro-hi {
   font-family: var(--font-mono), monospace;
@@ -191,12 +193,11 @@ a:hover {
 .socials {
   background: var(--green-deep);
   border-radius: 20px;
-  padding: 18px 26px;
+  padding: 18px 20px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
 }
 .social-link {
   display: flex;
@@ -472,4 +473,128 @@ a:hover {
 .sidenav-item.active .sidenav-label {
   font-weight: 700;
   color: var(--orange-deep);
+}
+
+/* ---- fishing keyframes ---- */
+@keyframes railpulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.65); }
+}
+@keyframes rigsway {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.2deg); }
+}
+@keyframes fishwiggle {
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(-9deg); }
+}
+@keyframes railbob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+/* ---- right rail ---- */
+.rail {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+}
+.rail-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rail-vert { writing-mode: vertical-rl; }
+.rail-now { gap: 16px; }
+.rail-now-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #5aa06f;
+  box-shadow: 0 0 0 4px rgba(90, 160, 111, 0.18);
+  animation: railpulse 2.2s ease-in-out infinite;
+  flex: none;
+}
+.rail-now-label {
+  font: 600 12px var(--font-mono), monospace;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.rail-now-loc {
+  font: 400 11px var(--font-mono), monospace;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+}
+.rail-clock { gap: 14px; }
+.rail-clock svg { width: 16px; height: 16px; flex: none; }
+.rail-clock-city {
+  font: 400 11px var(--font-mono), monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.rail-clock-time {
+  font: 500 13px var(--font-mono), monospace;
+  letter-spacing: 0.12em;
+  color: var(--orange);
+}
+.rail-bobber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  animation: railbob 2.6s ease-in-out infinite;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.rail-bobber:hover { opacity: 0.8; }
+.rail-bobber svg { width: 36px; height: 50px; display: block; }
+.rail-bobber-label {
+  font: 600 10px var(--font-mono), monospace;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---- fly-line rig ----
+   Line height is scroll-driven (set inline by RightRail); the fish "bites"
+   near the bottom of the page and releases on the way back up. */
+.flyrig {
+  position: fixed;
+  right: 52px;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: rigsway 6s ease-in-out infinite;
+  transform-origin: top center;
+  pointer-events: none;
+}
+.flyrig-line {
+  width: 2px;
+  background: repeating-linear-gradient(180deg, #9db3a6 0 1.5px, transparent 1.5px 8px);
+}
+.flyrig-end { position: relative; }
+.flyrig-hook { width: 34px; height: 42px; display: block; }
+.flyrig-fish {
+  position: absolute;
+  left: -52px;
+  top: 16px;
+  width: 78px;
+  height: 43px;
+  transform-origin: 88% 45%;
+  transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  transform: translateY(28px) rotate(14deg);
+}
+.flyrig-fish.caught {
+  opacity: 1;
+  transform: rotate(-14deg);
+  animation: fishwiggle 1.4s ease-in-out 0.5s infinite;
 }
