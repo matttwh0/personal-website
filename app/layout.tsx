@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Sora, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { site } from "@/data/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -23,7 +24,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${sora.variable} ${plexMono.variable}`}>{children}</body>
+      <body className={`${sora.variable} ${plexMono.variable}`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
